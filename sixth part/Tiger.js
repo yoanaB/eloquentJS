@@ -1,6 +1,7 @@
-function PlantEater() {
-    this.energy = 20;
+function Tiger(){
+    this.energy = 30;
 }
+
 PlantEater.prototype.act = function(view) {
     var space = view.find(" ");
     if (this.energy > 60 && space)
