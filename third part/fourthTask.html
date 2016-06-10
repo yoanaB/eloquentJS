@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function deepEqual(firstValue, secondValue) {
+        if (firstValue === null || secondValue === null) {
+            return false;
+        }
+
+        if (typeof firstValue !== "object" && typeof secondValue !== "object") {
+
+            return firstValue === secondValue;
+        }
+
+        if (typeof firstValue === "object" && typeof secondValue !== "object" ||
+                typeof firstValue !== "object" && typeof secondValue === "object") {
+            return false;
+        }
+
+        if ((Object.keys(firstValue)).length != (Object.keys(secondValue)).length) {
+            return false;
+        }
+
+        if (typeof firstValue === "object" && Array.isArray(secondValue) ||
+                Array.isArray(firstValue) && typeof secondValue === "object") {
+            return false;
+        }
+
+        for (var values1 in firstValue) {
+            //console.log(firstValue[values1], secondValue[values2]);
+            if ((Object.keys(secondValue)).indexOf(values1) > -1) {
+                 if(!deepEqual(firstValue[values1], secondValue[values1])){
+                     return false;
+                 };
+            }
+
+            else return false;
+        }
+
+        return true;
+
+    }
+
+    var obj = {here: {is: "an", lelqti: { baba: "ti"}}, object: 2};
+    console.log(deepEqual(obj, {here: {is: "an", lelqti: { baba: "ti"}}, object: 2}));
+</script>
+
+</body>
+</html>

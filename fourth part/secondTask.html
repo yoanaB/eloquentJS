@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="ancestry_file.js"></script>
+</head>
+<body>
+<script>
+    var ancestry = JSON.parse(ANCESTRY_FILE);
+    console.log(ancestry.length);
+
+    function average(array) {
+        function plus(a, b) { return a + b; }
+        return array.reduce(plus) / array.length;
+    }
+
+    var byName = {};
+    ancestry.forEach(function(person) {
+        byName[person.name] = person;
+    });
+
+    function hasKnownMother(people){
+        return people.filter(function(person){
+            //debugger;
+           return  byName[person.mother] !== undefined;
+        });
+    }
+
+    console.log(hasKnownMother(ancestry));
+
+    function getMothers(people){
+        return hasKnownMother(people).map(function(person){
+            return byName[person.mother];
+        })
+    }
+
+    function averageAgeOfMothers(people){
+        return (hasKnownMother(people).map(function(person) {
+            //debugger;
+            return person.born - byName[person.mother].born;
+        }));
+    }
+
+    console.log(average(averageAgeOfMothers(ancestry)));
+
+</script>
+</body>
+</html>

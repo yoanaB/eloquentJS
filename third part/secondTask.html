@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function reverseArray(array){
+        var newArr = [];
+        var elem = null;
+        for(var i = array.length - 1; i >= 0; i--){
+            newArr.push(array[i]);
+        }
+        return newArr;
+    }
+
+    function reverseInPlace(array){
+        for(var i = 0; i < Math.floor(array.length / 2) ; i++ ){
+            var temp = array[i];
+            array[i] = array[array.length - i - 1];
+            array[array.length - i - 1] = temp;
+        }
+        return array;
+    }
+
+</script>
+</body>
+</html>

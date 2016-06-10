@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Vector(x, y){
+        this.x = x;
+        this.y = y;
+        this.length = Math.sqrt(x*x + y*y);
+    }
+
+    Vector.prototype.plus = function(vector){
+        return new Vector(this.x + vector.x, this.y + vector.y);
+    }
+
+    Vector.prototype.minus = function(vector){
+        return new Vector(this.x + vector.x, this.y - vector.y);
+    }
+
+</script>
+</body>
+</html>

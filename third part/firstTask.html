@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function range(n, m){
+        var rangeArr = []
+        for(var i = n; i <= m; i++){
+            rangeArr.push(i);
+        }
+        return rangeArr;
+    }
+
+    function sum(numberArr){
+        return numberArr.reduce(function(n, m){
+           return n + m;
+        })
+    }
+
+    function customRange(n, m, step){
+        var rangeArr = [];
+        for(var i = n; n < m ? i <= m : i >= m; i += step){
+            rangeArr.push(i);
+        }
+        return rangeArr;
+    }
+</script>
+</body>
+</html>

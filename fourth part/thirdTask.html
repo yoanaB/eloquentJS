@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="ancestry_file.js"></script>
+</head>
+<body>
+<script>
+    var ancestry = JSON.parse(ANCESTRY_FILE);
+    var century = {};
+
+    function average(array) {
+        function plus(a, b) { return a + b; }
+        return array.reduce(plus) / array.length;
+    }
+
+    ancestry.forEach(function(person){
+        if(century[Math.ceil(person.died/100)] !== undefined){
+            century[Math.ceil(person.died/100)].push(person.died - person.born)
+        }
+        else century[Math.ceil(person.died/100)] = [person.died - person.born];
+    })
+
+    function averageByCentury(people){
+       for(var i in people){
+           people[i] = average(people[i]);
+       }
+
+        return people;
+    }
+
+    function groupBy(array, func){
+        var groups = {};
+
+        array.forEach(function(elem){
+            if(groups[func(elem)] !== undefined){
+                groups[func(elem)].push(array.filter(func))
+            } else{
+                groups[func(elem)] = array.filter(func);
+            }
+        })
+
+        return groups;
+    }
+
+    var group = groupBy(ancestry, function(person){
+        return Math.ceil(person.died/100);
+    })
+
+    console.log(group);
+    console.log(averageByCentury(century));
+</script>
+</body>
+</html>

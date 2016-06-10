@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Collection(collection) {
+        this.collection = collection;
+    }
+
+    Collection.prototype.iterate = function (func, number) {
+        var length = this.collection.length;
+        for (var i = 0; length > number ? i < number : i < length; i++) {
+            //console.log(this.collection[i]);
+            func(this.collection[i]);
+        }
+    }
+
+    function ArraySeq(array) {
+        Collection.call(this, array);
+    }
+
+    ArraySeq.prototype = new Collection();
+    ArraySeq.constructor = ArraySeq;
+
+    function RangeSeq(start, end) {
+        this.range = (function (start, end) {
+
+            var range = [];
+            for (var i = start; i <= end; i++) {
+                range.push(i);
+            }
+            return range;
+        })(start, end)
+
+        Collection.call(this, this.range);
+    }
+
+    RangeSeq.prototype = new Collection();
+    RangeSeq.constructor = RangeSeq;
+
+    function logFive(collection) {
+
+        collection.iterate(console.log.bind(console), 5);
+    }
+
+    logFive(new ArraySeq([1, 2]));
+    logFive(new RangeSeq(100, 1000));
+</script>
+</body>
+</html>

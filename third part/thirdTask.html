@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function arrayToList(array){
+        var list = {};
+        list.value = array[0];
+        list.rest = {};
+        var current = list.rest;
+        for(var i = 1; i < array.length; i++){
+            current.value = array[i];
+            if(i == array.length - 1){
+                current.rest = null;
+            }
+            current.rest = {};
+            current = current.rest;
+        }
+        current.rest = null;
+
+        return list;
+    }
+
+    //console.log(arrayToList([1,2,3]));
+
+    function listToArray(array, list){
+        if(list.rest === null){
+            return array;
+        }
+        array.push(list.value);
+        return listToArray(array, list.rest);
+    }
+
+    //console.log(listToArray([], arrayToList([1,2,3])));
+
+    function prepend(elem, list){
+        var obj = {
+            value: elem,
+            rest: list
+        }
+
+        return obj;
+    }
+
+    //console.log(prepend(0, arrayToList([1,2,3])));
+
+    function nth(position, list){
+        if(position <= 0){
+            return list.value;
+        }
+        var count = 1;
+        var current = list;
+        while(count < position && list.rest !== null){
+            current = current.rest;
+            count++;
+        }
+        return current.value;
+    }
+
+    //console.log(nth(-1, arrayToList([1,2,3])));
+
+    function recursiveNth(position, list){
+        if(position <= 1 && list.rest !== null){
+            return list.value;
+        }
+
+        if(list.rest === null){
+            return undefined;
+        }
+
+        return recursiveNth(position - 1, list.rest )
+    }
+
+    console.log(recursiveNth(2, arrayToList([1,2,3])));
+</script>
+
+</body>
+</html>

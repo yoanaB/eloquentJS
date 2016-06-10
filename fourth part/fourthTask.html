@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function every(array, func) {
+        for (var i = 0; i < array.length; i++){
+            if(func(array[i]) == false){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function some(array, func) {
+        for (var i = 0; i < array.length; i++){
+            if(func(array[i]) == true){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    console.log(every([NaN, NaN, NaN], isNaN));
+</script>
+</body>
+</html>
