@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+ /*   Напишете функция, наречена withBoxUnlocked, която взема стойността на функцията, като аргумент, отключва
+    кутията, стартира функцията и след това гарантира, че кутията отново е заключена преди да се върне, независимо от
+    това дали функцията аргумент се е върнала нормално или хвърля изключение.*/
+
+    var box = {
+        locked: true,
+        unlock: function() { this.locked = false; },
+        lock: function() { this.locked = true;  },
+        _content: [],
+        get content() {
+            if (this.locked) throw new Error("Locked!");
+            return this._content;
+        }
+    };
+    function withBoxUnlocked(body) {
+        var locked = box.locked;
+        console.log(locked);
+       try{
+           box.unlock();
+           body();
+       } catch(e) {
+           console.log(e);
+       } finally {
+           if(locked){
+               box.unlock();
+           }
+           box.lock();
+       }
+    }
+
+    withBoxUnlocked(function() {
+        box.content.push("gold piece");
+    });
+
+    try {
+        withBoxUnlocked(function() {
+            throw new Error("Pirates on the horizon! Abort!");
+        });
+    } catch (e) {
+        console.log("Error raised:", e);
+    }
+    console.log(box.locked);
+ // → true
+</script>
+</body>
+</html>
