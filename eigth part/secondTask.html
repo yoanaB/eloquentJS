@@ -7,8 +7,9 @@
 <body>
 <script>
     var text = "'I'm the cook,' he said, 'it's my job.'";
-    // Change this call.
-    console.log(text.replace(/\W'|'\W/g, "\""));
+
+    console.log(text.replace(/(\W)'|'(\W)|^'|'$/g, "$1\"$2"));
+    //console.log(text.replace(/'/g, "\"").replace(/(\w)"(\w)/g, "$1\'$2"));*/
 
 </script>
 
